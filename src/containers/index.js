@@ -2,5 +2,6 @@
 
 import Register from './Register';
 import Login from './Login';
+import Create from './Create';
 
-export { Register, Login };
+export { Register, Login, Create };

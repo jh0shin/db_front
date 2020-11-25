@@ -5,7 +5,8 @@
 import { combineReducers } from 'redux';
 
 import authentication from './authentication';
+import task from './task';
 
 export default combineReducers({
-    authentication
+    authentication, task
 });

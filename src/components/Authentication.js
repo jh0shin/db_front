@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import './Authentication.css';
+import '../style.css';
  
 class Authentication extends Component {
     state = {
@@ -9,10 +9,12 @@ class Authentication extends Component {
         password: "",
         name: "",
         address: "",
-        gender: "",
+        gender: "M",
         phone: "",
-        birth: "",
-        role: ""
+        year: "2000",
+        month: "01",
+        day: "01",
+        role: "S"
     }
 
     handleChange = (e) => {
@@ -28,7 +30,7 @@ class Authentication extends Component {
         let address = this.state.address;
         let gender = this.state.gender;
         let phone = this.state.phone;
-        let birth = this.state.birth;
+        let birth = this.state.year + "-" + this.state.month + "-" + this.state.day;
         let role = this.state.role;
 
         this.props.onRegister(id, password, name, address, gender, phone, birth, role).then(
@@ -39,10 +41,12 @@ class Authentication extends Component {
                         password: "",
                         name: "",
                         address: "",
-                        gender: "",
+                        gender: "M",
                         phone: "",
-                        birth: "",
-                        role: ""
+                        year: "2000",
+                        month: "01",
+                        day: "01",
+                        role: "S"
                     })
                 }
             }
@@ -52,74 +56,155 @@ class Authentication extends Component {
     render() {
 
         const loginView = (
-            <div className="login-page">
-				<div className="form">
-					<form className="login-form">
-						<input
-                            name="id" type="text" placeholder="ID"
+            <fieldset>
+                <section>
+                    <label className="input">
+                        <label className="label">ID</label>
+                        <input name="id" type="text" placeholder="user ID"
                             onChange={this.handleChange} value={this.state.id}
                         />
-						<input
-                            name="password" type="password" placeholder="Password"
+                    </label>
+                </section>
+                
+                <section>
+                    <label className="input">
+                        <label className="label">Password</label>
+                        <input name="password" type="password" placeholder="user password"
                             onChange={this.handleChange} value={this.state.password}
                         />
-						<button>LOGIN</button>
-						<p className="message">Not registered? <a href="/register">Create an account</a></p>
-					</form>
-				</div>
-			</div>
+                    </label>
+                </section>
+
+                <p className="message">Not registered? <a href="/register">Create an account</a></p>
+            </fieldset>
         );
  
         const registerView = (
-            <div className="login-page">
-				<div className="form">
-					<form className="register-form">
-                        <input
-                            name="id" type="text" placeholder="ID"
+            <fieldset>					
+                <section>
+                    <label className="input">
+                        <label className="label">ID</label>
+                        <input name="id" type="text" placeholder="user ID"
                             onChange={this.handleChange} value={this.state.id}
                         />
-                        <input
-                            name="password" type="password" placeholder="Password"
+                    </label>
+                </section>
+                
+                <section>
+                    <label className="input">
+                        <label className="label">Password</label>
+                        <input name="password" type="password" placeholder="user password"
                             onChange={this.handleChange} value={this.state.password}
                         />
-                        <input
-                            name="name" type="text" placeholder="Name"
+                    </label>
+                </section>
+
+                <section>
+                    <label className="input">
+                        <label className="label">Name</label>
+                        <input name="name" type="text" placeholder="Name"
                             onChange={this.handleChange} value={this.state.name}
                         />
-                        <input
-                            name="address" type="text" placeholder="Address"
+                    </label>
+                </section>
+
+                <section>
+                    <label className="input">
+                        <label className="label">Address</label>
+                        <input name="address" type="text" placeholder="Address"
                             onChange={this.handleChange} value={this.state.address}
                         />
-                        <input
-                            name="gender" type="text" placeholder="Gender"
-                            onChange={this.handleChange} value={this.state.gender}
-                        />
-                        <input
-                            name="phone" type="text" placeholder="Phone"
+                    </label>
+                </section>
+
+                <section>
+                    <label className="label">Gender</label>
+                    <section>
+                        <label className="select">
+                            <select name="gender" onChange={this.handleChange} value={this.state.gender}>
+                                <option value="M">Male</option>
+                                <option value="W">Female</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </section>
+                </section>
+
+                <section>
+                    <label className="input">
+                        <label className="label">Phone</label>
+                        <input name="phone" type="text" placeholder="Phone (Please enter without '-')"
                             onChange={this.handleChange} value={this.state.phone}
                         />
-                        <input
-                            name="birth" type="text" placeholder="Birth"
-                            onChange={this.handleChange} value={this.state.birth}
-                        />
-                        <input
-                            name="role" type="text" placeholder="Role"
-                            onChange={this.handleChange} value={this.state.role}
-                        />
-						<button onClick={this.handleRegister}>REGISTER</button>
-						<p className="message">Already registered? <a href="/login">Sign In</a></p>
-					</form>
-				</div>
-			</div>
+                    </label>
+                </section>
+
+                <label className="label">Birth</label>
+                <div className="row">
+                    <section className="col col-4">
+                        <label className="input">
+                            <input name="year" type="number" placeholder="Year"
+                                min="1900" max="2020"
+                                onChange={this.handleChange} value={this.state.year}
+                            />
+                        </label>
+                    </section>
+                    <section className="col col-4">
+                        <label className="input">
+                            <input name="month" type="number" placeholder="Month"
+                                min="01" max="12"
+                                onChange={this.handleChange} value={this.state.month}
+                            />
+                        </label>
+                    </section>
+                    <section className="col col-4">
+                        <label className="input">
+                            <input name="day" type="number" placeholder="Day"
+                                min="01" max="31"
+                                onChange={this.handleChange} value={this.state.day}
+                            />
+                        </label>
+                    </section>
+                </div>
+
+                <section>
+                    <label className="label">Role</label>
+                    <section>
+                        <label className="select">
+                            <select name="role" onChange={this.handleChange} value={this.state.role}>
+                                <option value="S">Submitter</option>
+                                <option value="E">Evaluater</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </section>
+                </section>
+
+                <p className="message">Already registered? <a href="/login">Sign In</a></p>
+            </fieldset>
         );
 
+        const loginBtn = (
+            <footer>
+                <button className="button">Login</button>
+            </footer>
+        );
+
+        const registerBtn = (
+            <footer>
+                <button onClick={this.handleRegister} className="button">Register</button>
+            </footer>
+        );
+
+
         return (
-            <div className="container auth">
-                <div>
-                    <div>
-                        <div className="auth-title">{this.props.mode ? "LOGIN" : "REGISTER"}</div>
-                    </div>
+            <div className="body">
+                <div action="" className="sky-form">
+                    <header>
+                        {this.props.mode ? "LOGIN" : "REGISTER"}
+                    </header>
                     {this.props.mode ? loginView : registerView }
+                    {this.props.mode ? loginBtn : registerBtn}
                 </div>
             </div>
         );
@@ -133,7 +218,7 @@ Authentication.propTypes = {
  
 Authentication.defaultProps = {
     mode: true,
-    onRegister: (id, password) => { console.error("register function not defined"); }
+    onRegister: (id, password, name, address, gender, phone, birth, role) => { console.error("register function not defined"); }
 };
  
 export default Authentication;

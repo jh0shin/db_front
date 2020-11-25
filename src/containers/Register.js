@@ -10,12 +10,10 @@ class Register extends Component {
         return this.props.registerRequest(id, password, name, address, gender, phone, birth, role).then(
             () => {
                 if (this.props.status === "SUCCESS") {
-                    // alert('회원가입이 완료되었습니다.');
                     window.Materialize.toast('Success! Please log in.', 2000);
                     this.props.history.push('/login');
                     return true;
                 } else {
-                    // alert('회원가입에 실패했습니다.');
                     let $toastContent = window.$('<span style="color: #FFB4BA">' + this.props.errorMessage + '</span>');
                     window.Materialize.toast($toastContent, 2000);
                     return false;

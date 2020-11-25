@@ -22,7 +22,10 @@ export function registerRequest(id, password, name, address, gender, phone, birt
                 'birth': birth,
                 'role': role
         }).then((response) => {
-            dispatch(registerSuccess());
+            if (response.data['state'] === 'success')
+                dispatch(registerSuccess());
+            else
+                dispatch(registerFailure(response.data['code']))
         }).catch((error) => {
             console.log(error);
             dispatch(registerFailure(error.response.data.code));
