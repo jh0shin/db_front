@@ -3,5 +3,6 @@
 import Register from './Register';
 import Login from './Login';
 import Create from './Create';
+import App from './App';
 
-export { Register, Login, Create };
+export { Register, Login, Create, App };

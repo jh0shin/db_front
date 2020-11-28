@@ -19,10 +19,7 @@ export function taskCreateRequest(name, description, minuploadcycle, tdtname, td
                 'tdtname': tdtname,
                 'tdtschema': tdtschema
         }).then((response) => {
-            if (response.data['state'] === 'success')
-                dispatch(taskCreateSuccess());
-            else
-                dispatch(taskCreateFailure(response.data['code']))
+            dispatch(taskCreateSuccess());
         }).catch((error) => {
             console.log(error);
             dispatch(taskCreateFailure(error.response.data.code));

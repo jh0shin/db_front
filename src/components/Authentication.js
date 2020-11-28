@@ -53,6 +53,30 @@ class Authentication extends Component {
         )
     }
 
+    handleLogin = () => {
+        let id = this.state.id;
+        let password = this.state.password;
+
+        this.props.onLogin(id, password).then(
+            (success) => {
+                if(!success) {
+                    this.setState({
+                        password: ''
+                    });
+                }
+            }
+        );
+    }
+
+    // Auto login when press ENTER at password input box
+    handleKeyPress = (e) => {
+        if (e.charCode === 13) {
+            if (this.props.mode) {
+                this.handleLogin();
+            }
+        }
+    }
+
     render() {
 
         const loginView = (
@@ -71,6 +95,7 @@ class Authentication extends Component {
                         <label className="label">Password</label>
                         <input name="password" type="password" placeholder="user password"
                             onChange={this.handleChange} value={this.state.password}
+                            onKeyPress={this.handleKeyPress}
                         />
                     </label>
                 </section>
@@ -180,13 +205,13 @@ class Authentication extends Component {
                     </section>
                 </section>
 
-                <p className="message">Already registered? <a href="/login">Sign In</a></p>
+                <p className="message">Already registered? <a href="/login">Sign In</a></p>pp
             </fieldset>
         );
 
         const loginBtn = (
             <footer>
-                <button className="button">Login</button>
+                <button onClick={this.handleLogin} className="button">Login</button>
             </footer>
         );
 
@@ -213,12 +238,18 @@ class Authentication extends Component {
  
 Authentication.propTypes = {
     mode: PropTypes.bool,
-    onRegister: PropTypes.func
+    onRegister: PropTypes.func,
+    onLogin: PropTypes.func
 };
  
 Authentication.defaultProps = {
     mode: true,
-    onRegister: (id, password, name, address, gender, phone, birth, role) => { console.error("register function not defined"); }
+    onRegister: (id, password, name, address, gender, phone, birth, role) => {
+        console.error("register function not defined");
+    },
+    onLogin: (id, password) => {
+        console.error("login function not defined");
+    }
 };
  
 export default Authentication;

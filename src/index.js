@@ -5,7 +5,7 @@ import './style.css';
 
 // Routing
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Register, Login, Create } from './containers';
+import { Register, Login, Create, App } from './containers';
 import { AdminHome, ManageTask, TaskStatistic, User } from './components';
 
 // Redux
@@ -20,6 +20,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
+        <Route path="/" component={App}/>
+
         <Route path="/register" component={Register}/>
         <Route path="/login" component={Login}/>
 
