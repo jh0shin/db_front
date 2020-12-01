@@ -45,11 +45,67 @@ class Popup extends Component {
         );
 
         const submitterView = (
-            <div>{this.state.ItemList}</div>
+            <div className="wrapper">
+                <div className="table">
+                    <div className="row2-header">
+                        <div className="cell">TaskID</div>
+                        <div className="cell">DataID</div>
+                        <div className="cell">Order</div>
+                        <div className="cell">FileName</div>
+                        <div className="cell">P/NP</div>
+                        <div className="cell">Score</div>
+                    </div>
+                    {this.state.ItemList &&
+                        this.state.ItemList.map((itemdata) => {
+                            return (
+                                <div className="row2" key={itemdata[1]}>
+                                    <div className="cell" data-title="TaskID">{itemdata[0]}</div>
+                                    <div className="cell" data-title="DataID">{itemdata[1]}</div>
+                                    <div className="cell" data-title="Order">{itemdata[2]}</div>
+                                    <div className="cell" data-title="FileName">{itemdata[3]}</div>
+                                    <div className="cell" data-title="P/NP">{itemdata[4]}</div>
+                                    <div className="cell" data-title="Score">{itemdata[5]}</div>
+                                </div>
+                            );
+                        })
+                    }
+                </div>
+            </div>
         );
 
         const evaluatorView = (
-            <div>{this.state.ItemList}</div>
+            <div className="wrapper">
+                <div className="table">
+                    <div className="row2-header">
+                        <div className="cell">ID</div>
+                        <div className="cell">FileName</div>
+                        <div className="cell">P/NP</div>
+                        <div className="cell">Total tuple</div>
+                        <div className="cell">Dup tuple</div>
+                        <div className="cell">Null ratio</div>
+                        <div className="cell">Quality</div>
+                        <div className="cell">Score</div>
+                        <div className="cell">Eval ID</div>
+                    </div>
+                    {this.state.ItemList &&
+                        this.state.ItemList.map((itemdata) => {
+                            return (
+                                <div className="row2" key={itemdata[0]}>
+                                    <div className="cell" data-title="ID">{itemdata[0]}</div>
+                                    <div className="cell" data-title="FileName">{itemdata[1]}</div>
+                                    <div className="cell" data-title="P/NP">{itemdata[2]}</div>
+                                    <div className="cell" data-title="Total tuple">{itemdata[3]}</div>
+                                    <div className="cell" data-title="Dup tuple">{itemdata[4]}</div>
+                                    <div className="cell" data-title="Null Ratio">{itemdata[5]}</div>
+                                    <div className="cell" data-title="Quality">{itemdata[6]}</div>
+                                    <div className="cell" data-title="Score">{itemdata[7]}</div>
+                                    <div className="cell" data-title="Eval ID">{itemdata[8]}</div>
+                                </div>
+                            );
+                        })
+                    }
+                </div>
+            </div>
         );
 
         return (
@@ -63,7 +119,7 @@ class Popup extends Component {
                     : (role === 'S' ? submitterView : evaluatorView)
                 }
             </div>
-            <button onClick={this.props.closePopup}>close me</button>
+            <div className="button_round" onClick={this.props.closePopup}>Close</div>
             </div>
           </div>
         );

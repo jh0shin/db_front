@@ -100,7 +100,7 @@ class User extends Component {
                                 <section className="col col-6">
                                     <label className="label">Task ID</label>
                                     <label className="input">
-                                        <input name="task" type="text" placeholder="Task ID"
+                                        <input name="task" type="number" placeholder="Task ID"
                                             onChange={this.handleChange} value={this.state.task}
                                         />
                                     </label>

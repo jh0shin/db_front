@@ -73,36 +73,33 @@ body {
 }
 .popup_inner {
 	position: absolute;
-	left: 25%;
-	right: 25%;
+	left: 10%;
+	right: 10%;
 	top: 25%;
 	bottom: 25%;
+	overflow: auto;
 	background-color: #fefefe;
 	margin: auto;
 	padding: 0;
 	border: 1px solid #888;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-	-webkit-animation-name: animatetop;
-	-webkit-animation-duration: 0.4s;
-	animation-name: animatetop;
-	animation-duration: 0.4s
 }
 .modal-header {
 	padding: 2px 16px;
 	background-color: #5cb85c;
 	color: white;
 }
-
 .modal-body {padding: 2px 16px;}
-/* Add Animation */
-@-webkit-keyframes animatetop {
-  from {top:-300px; opacity:0} 
-  to {top:0; opacity:1}
-}
-
-@keyframes animatetop {
-  from {top:-300px; opacity:0}
-  to {top:0; opacity:1}
+.button_round {
+    background: #2fc974;
+    color: #fff;
+    display: block;
+    padding: 5px 10px;
+	text-align: center;
+    text-decoration: none;
+	width: 20%;
+	border-radius: 8px;
+	margin: 0 auto;
 }
 
 .sky-form {
