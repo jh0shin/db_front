@@ -1,17 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+import './style.css';
+
+// Routing
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Register, Login, Create, App } from './containers';
+import { AddDatatype, AdminHome, ManageTask, TaskStatistic, User } from './components';
+
+// Redux
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reducers from './reducers';
+import thunk from 'redux-thunk';
+
+const store = createStore(reducers, applyMiddleware(thunk));
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <Router>
+      <div>
+        <Route path="/" component={App}/>
+
+        <Route path="/register" component={Register}/>
+        <Route path="/login" component={Login}/>
+
+        <Route path="/admin" exact={true} component={AdminHome} />
+        <Route path="/admin/createtask" component={Create} />
+        <Route path="/admin/adddatatype" component={AddDatatype} />
+        <Route path="/admin/managetask" component={ManageTask} />
+        <Route path="/admin/taskstatistic" component={TaskStatistic} />
+        <Route path="/admin/user" component={User} />
+      </div>
+    </Router>
+  </Provider>
+  ,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+module.hot.accept();
