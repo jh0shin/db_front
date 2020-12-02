@@ -6,7 +6,7 @@ import './style.css';
 // Routing
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Register, Login, Create, App } from './containers';
-import { AdminHome, ManageTask, TaskStatistic, User } from './components';
+import { AddDatatype, AdminHome, ManageTask, TaskStatistic, User } from './components';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -27,6 +27,7 @@ ReactDOM.render(
 
         <Route path="/admin" exact={true} component={AdminHome} />
         <Route path="/admin/createtask" component={Create} />
+        <Route path="/admin/adddatatype" component={AddDatatype} />
         <Route path="/admin/managetask" component={ManageTask} />
         <Route path="/admin/taskstatistic" component={TaskStatistic} />
         <Route path="/admin/user" component={User} />
