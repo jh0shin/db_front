@@ -31,7 +31,7 @@ export function getStatusRequest() {
 
         return axios.get('http://localhost:3000/api/getinfo/')
         .then((response) => {
-            dispatch(getStatusSuccess(response.data.info.username));
+            dispatch(getStatusSuccess(response.data.info.userid));
         }).catch((error) => {
             dispatch(getStatusFailure());
         });

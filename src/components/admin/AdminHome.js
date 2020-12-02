@@ -24,6 +24,9 @@ class AdminHome extends Component {
                     <section>
                         <span id="memberManagementStatistics"><a href="/admin/user">멤버 관리 및 통계</a></span>
                     </section>
+                    <section>
+                        <span id="modifyuserinfo"><a href="/info?id=admin">정보 수정</a></span>
+                    </section>
                 </fieldset>
                 </div>
             </div>
