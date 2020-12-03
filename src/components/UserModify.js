@@ -23,16 +23,40 @@ class UserModify extends Component {
     }
 
     handleModify = () => {
-        let id = this.state.id;
-        let name = this.state.name;
-        let address = this.state.address;
-        let gender = this.state.gender;
-        let phone = this.state.phone;
         let birth = this.state.year + "-" + this.state.month + "-" + this.state.day;
 
-        this.props.onRegister(id, name, address, gender, phone, birth).then(
+        axios.post("http://localhost:3000/api/user/modify/", {
+            "userid": this.state.id,
+            "name": this.state.name,
+            "address": this.state.address,
+            "gender": this.state.gender,
+            "phone": this.state.phone,
+            "birth": birth
+        }).then((response) => {
+            let $toastContent = window.$('<span style="color: #FFB4BA">회원 정보 수정이 완료되었습니다.</span>');
+            window.Materialize.toast($toastContent, 4000);
+            if (this.state.role === "A")
+                this.props.history.push('/admin');
+            else if (this.state.role === "S")
+                window.location.assign("http://localhost:3000/submitter?id=" + this.state.id)
+            else
+                window.location.assign("http://localhost:3000/evaluater?id=" + this.state.id)
+        }).catch((e) => {});
+    }
 
-        )
+    handleWithdraw = async () => {
+        if(this.state.id === "admin") { 
+            let $toastContent = window.$('<span style="color: #FFB4BA">admin은 탈퇴가 불가능합니다.</span>');
+            window.Materialize.toast($toastContent, 4000);
+        } else {
+            axios.post("http://localhost:3000/api/user/delete/", {
+                "userid": this.state.id
+            }).then((response) => {
+                let $toastContent = window.$('<span style="color: #FFB4BA">회원 탈퇴가 완료되었습니다.</span>');
+                window.Materialize.toast($toastContent, 4000);
+                this.props.history.push("/login");
+            }).catch((e) => {});
+        }
     }
 
     loadData = async () => {
@@ -55,7 +79,7 @@ class UserModify extends Component {
             console.error(e);
             let $toastContent = window.$('<span style="color: #FFB4BA">Error occured : ' + e + '</span>');
             window.Materialize.toast($toastContent, 4000);
-            // this.props.history.push("/");
+            this.props.history.push("/");
         });
     }
 
@@ -164,7 +188,8 @@ class UserModify extends Component {
                     </fieldset>
                 
                     <footer>
-                        <button onClick={this.handleModify} className="button">Modify</button>
+                        <button onClick={this.handleModify} className="button">정보 수정</button>
+                        <button onClick={this.handleWithdraw} className="button">회원 탈퇴</button>
                     </footer>
                 </div>
             </div>
