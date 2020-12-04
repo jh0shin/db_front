@@ -6,7 +6,6 @@ class ManageTask extends Component {
         toggle: false,
         loading: false,
         ItemList: [],
-        ItemListTask : [],
         ItemListMember: [],
         ItemListODT : []
     };
@@ -18,7 +17,7 @@ class ManageTask extends Component {
         }).then((response) => {
             this.setState({
                 loading: true,
-                ItemListTask: response.data.result
+                ItemList: response.data.result
             })
             console.log(this.state);
         }).catch(e => {
@@ -98,9 +97,7 @@ class ManageTask extends Component {
                     <div className="row2-header">
                         <div className="cell">taskname</div>
                         <div className="cell">explanation</div>
-                        <div className="cell">waiting submitter</div>
-                        <div className="cell">waiting original data type</div>
-                        <div className="cell">set pass value</div>
+                        <div className="cell">manage task</div>
 
                         </div>
                         {this.state.ItemList &&
@@ -109,25 +106,13 @@ class ManageTask extends Component {
                                     <div className="row2" onClick={this.togglePop.bind(this, itemdata[0])} key={itemdata[0]}>
                                         <div className="cell" data-title="TaskName">{itemdata[0]}</div>
                                         <div className="cell" data-title="Explanation">{itemdata[1]}</div>
+                                        <div className="cell">manage task</div>
                                     </div>
                                 );
                             })
                         }
                     </div>
 
-                    </div>
-                    {Itemcard &&
-                        Itemcard.map((itemdata) => {
-                            return (
-                                <div className="row2" onClick={this.togglePop.bind(this, itemdata[0], itemdata[3])} key={itemdata[0]}>
-                                    <div className="cell" data-title="id">{itemdata[0]}</div>
-                                    <div className="cell" data-title="gender">{itemdata[1]}</div>
-                                    <div className="cell" data-title="age">{itemdata[2]}</div>
-                                    <div className="cell" data-title="role">{itemdata[3]}</div>
-                                </div>
-                            );
-                        })
-                    }
                     {this.state.toggle ? <Popup id={this.state.id} role={this.state.role} closePopup={this.togglePop.bind(this)} /> : null}
                 </div>
             </div>
