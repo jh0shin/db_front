@@ -4,12 +4,13 @@ class ManageTask extends Component {
 
     state = {
         loading: false,
-        ItemList: []
+        ItemList: [],
+        ItemListTask : [],
+        ItemListMember: [],
+        ItemListODT : []
     };
 
-    ItemListTask = []
-    ItemListMember = []
-    ItemListODT = []
+
 
     //manageMain
     loadData1 = async () => {
@@ -30,7 +31,7 @@ class ManageTask extends Component {
 
     //addParticipant
     loadData2 = async () => {
-        axios.post("http://localhost:3000/api/member/allow/", {
+        axios.post("http://localhost:3000/api/task/getmember/", {
             "member_id": this.state.member_id,
             "taskname": this.state.taskname
         }).then((response) => {
@@ -49,7 +50,7 @@ class ManageTask extends Component {
 
     //addDatatype
     loadData3 = async () => {
-        axios.post("http://localhost:3000/api/task/allowodt/", {
+        axios.post("http://localhost:3000/api/task/getodt/", {
             "taskname": this.state.taskname,
             "datatypename": this.state.datatypename,
             "mappingschema": this.state.mappingschema,
@@ -87,39 +88,36 @@ class ManageTask extends Component {
     }
 
     render() {
-        return (
-            <div>
-                <text>ManageTask page</text>
-            </div>
-        );
-    }
-}
-
-class PopWaitingMember extends Component {
-    state = {
-        toggle: false,
-        taskid: '',
-        role: ''
-    };
-
-    togglePop = (id, role) => {
-        this.setState({
-            toggle: !this.state.toggle,
-            id: id,
-            role: role
-        });
-    };
-
-    render() {
         const { Itemcard } = this.props;
+        const tasklist = (
+          <div>{this.state.ItemList}</div>
+        );
         return (
             <div className="wrapper">
                 <div className="table">
                     <div className="row2-header">
-                        <div className="cell">ID</div>
-                        <div className="cell">Gender</div>
-                        <div className="cell">Age</div>
-                        <div className="cell">Role</div>
+                        <div className="cell">taskname</div>
+                        <div className="cell">explanation</div>
+                        <div className="cell">waiting submitter</div>
+                        <div className="cell">waiting original data type</div>
+                        <div className="cell">set pass value</div>
+
+                        </div>
+                        {this.state.ItemList &&
+                            this.state.ItemList.map((itemdata) => {
+                                return (
+                                    <div className="row2" key={itemdata[0]}>
+                                        <div className="cell" data-title="TaskName">{itemdata[0]}</div>
+                                        <div className="cell" data-title="Explanation">{itemdata[1]}</div>
+                                    
+                                        <div className="cell" data-title="Score">{itemdata[7]}</div>
+                                        <div className="cell" data-title="Eval ID">{itemdata[8]}</div>
+                                    </div>
+                                );
+                            })
+                        }
+                    </div>
+
                     </div>
                     {Itemcard &&
                         Itemcard.map((itemdata) => {
@@ -137,6 +135,131 @@ class PopWaitingMember extends Component {
                 </div>
             </div>
         );
+    }
+  }
+
+class PopWaitingMember extends Component {
+  state = {
+      loading: false,
+      ItemList: []
+  };
+
+  loadData = async () => {
+      if (this.props.id === "admin") {
+          this.setState({
+              loading: true,
+              ItemList: ['Admin info is not visible']
+          });
+      }
+      else {
+          axios.post("http://localhost:3000/api/member/info/", {
+              "userid": this.props.id,
+              "role": this.props.role,
+          }).then((response) => {
+              this.setState({
+                  loading: true,
+                  ItemList: response.data.result
+              })
+              console.log(this.state);
+          }).catch(e => {
+              console.error(e);
+              this.setState({
+                  loading: false
+              });
+          });
+      }
+  }
+
+  componentDidMount() {
+      this.loadData();
+  }
+
+  render() {
+      const { id, role } = this.props;
+
+      const adminView = (
+          <div>{this.state.ItemList}</div>
+      );
+
+      const submitterView = (
+          <div className="wrapper">
+              <div className="table">
+                  <div className="row2-header">
+                      <div className="cell">TaskID</div>
+                      <div className="cell">DataID</div>
+                      <div className="cell">Order</div>
+                      <div className="cell">FileName</div>
+                      <div className="cell">P/NP</div>
+                      <div className="cell">Score</div>
+                  </div>
+                  {this.state.ItemList &&
+                      this.state.ItemList.map((itemdata) => {
+                          return (
+                              <div className="row2" key={itemdata[1]}>
+                                  <div className="cell" data-title="TaskID">{itemdata[0]}</div>
+                                  <div className="cell" data-title="DataID">{itemdata[1]}</div>
+                                  <div className="cell" data-title="Order">{itemdata[2]}</div>
+                                  <div className="cell" data-title="FileName">{itemdata[3]}</div>
+                                  <div className="cell" data-title="P/NP">{itemdata[4]}</div>
+                                  <div className="cell" data-title="Score">{itemdata[5]}</div>
+                              </div>
+                          );
+                      })
+                  }
+              </div>
+          </div>
+      );
+
+      const evaluatorView = (
+          <div className="wrapper">
+              <div className="table">
+                  <div className="row2-header">
+                      <div className="cell">ID</div>
+                      <div className="cell">FileName</div>
+                      <div className="cell">P/NP</div>
+                      <div className="cell">Total tuple</div>
+                      <div className="cell">Dup tuple</div>
+                      <div className="cell">Null ratio</div>
+                      <div className="cell">Quality</div>
+                      <div className="cell">Score</div>
+                      <div className="cell">Eval ID</div>
+                  </div>
+                  {this.state.ItemList &&
+                      this.state.ItemList.map((itemdata) => {
+                          return (
+                              <div className="row2" key={itemdata[0]}>
+                                  <div className="cell" data-title="ID">{itemdata[0]}</div>
+                                  <div className="cell" data-title="FileName">{itemdata[1]}</div>
+                                  <div className="cell" data-title="P/NP">{itemdata[2]}</div>
+                                  <div className="cell" data-title="Total tuple">{itemdata[3]}</div>
+                                  <div className="cell" data-title="Dup tuple">{itemdata[4]}</div>
+                                  <div className="cell" data-title="Null Ratio">{itemdata[5]}</div>
+                                  <div className="cell" data-title="Quality">{itemdata[6]}</div>
+                                  <div className="cell" data-title="Score">{itemdata[7]}</div>
+                                  <div className="cell" data-title="Eval ID">{itemdata[8]}</div>
+                              </div>
+                          );
+                      })
+                  }
+              </div>
+          </div>
+      );
+
+      return (
+        <div className='popup'>
+          <div className='popup_inner'>
+          <div className="modal-header">
+              <h3>{id}</h3>
+          </div>
+          <div className="modal-body">
+              {(role === 'A') ? adminView
+                  : (role === 'S' ? submitterView : evaluatorView)
+              }
+          </div>
+          <div className="button_round" onClick={this.props.closePopup}>Close</div>
+          </div>
+        </div>
+      );
     }
 }
 
