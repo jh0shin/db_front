@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 class ManageTask extends Component {
 
     state = {
+        toggle: false,
         loading: false,
         ItemList: [],
         ItemListTask : [],
         ItemListMember: [],
         ItemListODT : []
     };
-
 
 
     //manageMain
@@ -106,12 +106,9 @@ class ManageTask extends Component {
                         {this.state.ItemList &&
                             this.state.ItemList.map((itemdata) => {
                                 return (
-                                    <div className="row2" key={itemdata[0]}>
+                                    <div className="row2" onClick={this.togglePop.bind(this, itemdata[0])} key={itemdata[0]}>
                                         <div className="cell" data-title="TaskName">{itemdata[0]}</div>
                                         <div className="cell" data-title="Explanation">{itemdata[1]}</div>
-
-                                        <div className="cell" onClick={this.togglePop.bind(this, itemdata[0])}>제출자 대기 명단</div>
-                                        <div className="cell" onClick={this.togglePop.bind(this, itemdata[0])}>원본 데이터 명단</div>
                                     </div>
                                 );
                             })
@@ -138,7 +135,7 @@ class ManageTask extends Component {
     }
   }
 
-class PopWaitingMember extends Component {
+class PopWindow extends Component {
   state = {
       loading: false,
       ItemList: []
