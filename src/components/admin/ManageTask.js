@@ -109,9 +109,9 @@ class ManageTask extends Component {
                                     <div className="row2" key={itemdata[0]}>
                                         <div className="cell" data-title="TaskName">{itemdata[0]}</div>
                                         <div className="cell" data-title="Explanation">{itemdata[1]}</div>
-                                    
-                                        <div className="cell" data-title="Score">{itemdata[7]}</div>
-                                        <div className="cell" data-title="Eval ID">{itemdata[8]}</div>
+
+                                        <div className="cell" onClick={this.togglePop.bind(this, itemdata[0])}>제출자 대기 명단</div>
+                                        <div className="cell" onClick={this.togglePop.bind(this, itemdata[0])}>원본 데이터 명단</div>
                                     </div>
                                 );
                             })
