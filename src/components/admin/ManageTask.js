@@ -95,4 +95,49 @@ class ManageTask extends Component {
     }
 }
 
+class PopWaitingMember extends Component {
+    state = {
+        toggle: false,
+        taskid: '',
+        role: ''
+    };
+
+    togglePop = (id, role) => {
+        this.setState({
+            toggle: !this.state.toggle,
+            id: id,
+            role: role
+        });
+    };
+
+    render() {
+        const { Itemcard } = this.props;
+        return (
+            <div className="wrapper">
+                <div className="table">
+                    <div className="row2-header">
+                        <div className="cell">ID</div>
+                        <div className="cell">Gender</div>
+                        <div className="cell">Age</div>
+                        <div className="cell">Role</div>
+                    </div>
+                    {Itemcard &&
+                        Itemcard.map((itemdata) => {
+                            return (
+                                <div className="row2" onClick={this.togglePop.bind(this, itemdata[0], itemdata[3])} key={itemdata[0]}>
+                                    <div className="cell" data-title="id">{itemdata[0]}</div>
+                                    <div className="cell" data-title="gender">{itemdata[1]}</div>
+                                    <div className="cell" data-title="age">{itemdata[2]}</div>
+                                    <div className="cell" data-title="role">{itemdata[3]}</div>
+                                </div>
+                            );
+                        })
+                    }
+                    {this.state.toggle ? <Popup id={this.state.id} role={this.state.role} closePopup={this.togglePop.bind(this)} /> : null}
+                </div>
+            </div>
+        );
+    }
+}
+
 export default ManageTask;
