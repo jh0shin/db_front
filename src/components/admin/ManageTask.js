@@ -4,7 +4,7 @@ class ManageTask extends Component {
 
     state = {
         toggle: false,
-
+        taskid : "",
         ItemList: [],
     };
 
@@ -57,7 +57,7 @@ class ManageTask extends Component {
                         }
                     </div>
 
-                    {this.state.toggle ? <Popup id={this.state.id} role={this.state.role} closePopup={this.togglePop.bind(this)} /> : null}
+                    {this.state.toggle ? <Popup task = {this.state.taskname}id={this.state.id} role={this.state.role} closePopup={this.togglePop.bind(this)} /> : null}
                 </div>
             </div>
         );
@@ -68,6 +68,7 @@ class ManageTask extends Component {
 
 class PopWindow extends Component {
   state = {
+      taskid = ''
       loading: false,
       ItemListODT: [],
       ItemListMember : []
@@ -155,7 +156,7 @@ class PopWindow extends Component {
                   {this.state.ItemList &&
                       this.state.ItemList.map((itemdata) => {
                           return (
-                              <div className="row2" key={itemdata[0]}>
+                              <div className="row2" onClick={this.addParticipant()={itemdata[0]}>
                                   <div className="cell" data-title="ID">{itemdata[0]}</div>
                                   <div className="cell" data-title="Name">{itemdata[1]}</div>
                                   <div className="cell" data-title="EVALSCORE">{itemdata[2]}</div>
