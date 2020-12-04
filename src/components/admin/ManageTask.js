@@ -4,13 +4,13 @@ class ManageTask extends Component {
 
     state = {
         toggle: false,
-        taskid : "",
+        taskname : "",
         ItemList: [],
     };
 
 
     //manageMain
-    loadData1 = async () => {
+    loadTaskData = async () => {
         axios.post("http://localhost:3000/api/task/manage/", {
         }).then((response) => {
             this.setState({
@@ -57,7 +57,7 @@ class ManageTask extends Component {
                         }
                     </div>
 
-                    {this.state.toggle ? <Popup task = {this.state.taskname}id={this.state.id} role={this.state.role} closePopup={this.togglePop.bind(this)} /> : null}
+                    {this.state.toggle ? <Popup taskname = {this.state.taskname} closePopup={this.togglePop.bind(this)} /> : null}
                 </div>
             </div>
         );
@@ -68,7 +68,7 @@ class ManageTask extends Component {
 
 class PopWindow extends Component {
   state = {
-      taskid = ''
+      taskname : '', // 위에서 taskname 받아오기
       loading: false,
       ItemListODT: [],
       ItemListMember : []
@@ -76,7 +76,7 @@ class PopWindow extends Component {
 
 
   //showDatatype
-  loadData1 = async () => {
+  showODT = async () => {
       axios.post("http://localhost:3000/api/task/getodt/", {
           "taskname": this.state.taskname,
 
@@ -96,7 +96,7 @@ class PopWindow extends Component {
 
 
   //showParticipant
-  loadData2 = async () => {
+  showMember = async () => {
       axios.post("http://localhost:3000/api/task/getmember/", {
 
           "taskname": this.state.taskname
@@ -116,7 +116,7 @@ class PopWindow extends Component {
 
 
 
-  loadData3 = async () => {
+  setPasslimit = async () => {
       axios.post("http://localhost:3000/api/task/setpass/", {
           "taskname": this.state.taskname,
           "passval": this.state.passval
@@ -134,9 +134,45 @@ class PopWindow extends Component {
   }
 
 
+  addParticipant = async () => {
+      axios.post("http://localhost:3000/api/member/allow/", {
+          "member_id": this.state.member_id,
+          "taskname": this.state.taskname
+      }).then((response) => {
+          this.setState({
+              loading: true,
+          })
+          console.log(this.state);
+      }).catch(e => {
+          console.error(e);
+          this.setState({
+              loading: false
+          });
+      });
+  }
+
+  addODT = async () => {
+      axios.post("http://localhost:3000/api/member/allow/", {
+          "taskname": this.state.taskname,
+          "datatypename": this.state.datatypename,
+      }).then((response) => {
+          this.setState({
+              loading: true,
+          })
+          console.log(this.state);
+      }).catch(e => {
+          console.error(e);
+          this.setState({
+              loading: false
+          });
+      });
+  }
+
+
   componentDidMount() {
       this.loadData();
   }
+
 
   render() {
       const { id, role } = this.props;
@@ -156,7 +192,7 @@ class PopWindow extends Component {
                   {this.state.ItemList &&
                       this.state.ItemList.map((itemdata) => {
                           return (
-                              <div className="row2" onClick={this.addParticipant()={itemdata[0]}>
+                              <div className="row2" onClick={this.addParticipant(itemdata[0], this.state.taskname) key={itemdata[0]}>
                                   <div className="cell" data-title="ID">{itemdata[0]}</div>
                                   <div className="cell" data-title="Name">{itemdata[1]}</div>
                                   <div className="cell" data-title="EVALSCORE">{itemdata[2]}</div>
@@ -172,22 +208,17 @@ class PopWindow extends Component {
           <div className="wrapper">
               <div className="table">
                   <div className="row2-header">
-                      <div className="cell">SCHEMAINFO</div>
                       <div className="cell">SCHEMATYPE</div>
+                      <div className="cell">SCHEMAINFO</div>
+                      <div className="cell">DATATYPE_NAME</div>
                   </div>
                   {this.state.ItemListODT &&
                       this.state.ItemListODT.map((itemdata) => {
                           return (
-                              <div className="row2" key={itemdata[0]}>
-                                  <div className="cell" data-title="ID">{itemdata[0]}</div>
+                              <div className="row2" onClick={this.addODT(this.state.taskname, itemdata[0]) key={itemdata[1]}>
+                                  <div className="cell" data-title="ID">{itemdata[2]}</div>
                                   <div className="cell" data-title="FileName">{itemdata[1]}</div>
-                                  <div className="cell" data-title="P/NP">{itemdata[2]}</div>
-                                  <div className="cell" data-title="Total tuple">{itemdata[3]}</div>
-                                  <div className="cell" data-title="Dup tuple">{itemdata[4]}</div>
-                                  <div className="cell" data-title="Null Ratio">{itemdata[5]}</div>
-                                  <div className="cell" data-title="Quality">{itemdata[6]}</div>
-                                  <div className="cell" data-title="Score">{itemdata[7]}</div>
-                                  <div className="cell" data-title="Eval ID">{itemdata[8]}</div>
+                                  <div className="cell" data-title="P/NP">{itemdata[0]}</div>
                               </div>
                           );
                       })
