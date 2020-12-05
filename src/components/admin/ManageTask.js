@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class ManageTask extends Component {
 
@@ -22,10 +23,10 @@ class ManageTask extends Component {
         axios.post("http://localhost:3000/api/task/manage/", {
         }).then((response) => {
             this.setState({
+                ...this.state,
                 loading: true,
-                ItemList: response.data.result
+                ItemList: response.data.task_list
             })
-            console.log(this.state);
         }).catch(e => {
             console.error(e);
             this.setState({
@@ -34,7 +35,9 @@ class ManageTask extends Component {
         });
     }
 
-
+    componentDidMount () {
+        this.loadTaskData();
+    }
 
     //setPassval
 
@@ -64,7 +67,7 @@ class ManageTask extends Component {
                         }
                     </div>
 
-                    {this.state.toggle ? <Popup taskname={this.state.taskname} closePopup={this.togglePop.bind(this)} /> : null}
+                    {this.state.toggle ? <PopWindow taskname={this.state.taskname} closePopup={this.togglePop.bind(this)} /> : null}
                 </div>
             </div>
         );
@@ -245,7 +248,8 @@ class PopWindow extends Component {
                         <h3>{taskname}</h3>
                     </div>
                     <div className="modal-body">
-                        {submitterlist, odtList}
+                        {submitterlist}
+                        {odtList}
                     </div>
                     <div className="input">
                         <label className="label">Pass value</label>
