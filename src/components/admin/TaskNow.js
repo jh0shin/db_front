@@ -11,7 +11,7 @@ class Pop extends Component {
     };
 
     loadData = async () => {
-        axios.post("http://localhost:3031/api/task/now/", {
+        axios.post("http://165.132.105.42:3031/api/task/now/", {
             "submittername": this.props.submittername,
         }).then((response) => {
             console.log(response.data);

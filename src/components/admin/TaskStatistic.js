@@ -20,7 +20,7 @@ class TaskStatistic extends Component {
 
     loadData = async () => {
 
-        axios.post("http://localhost:3031/api/task/statistics/", {
+        axios.post("http://165.132.105.42:3031/api/task/statistics/", {
 
         }).then((response) => {
             this.setState({

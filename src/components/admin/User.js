@@ -17,7 +17,7 @@ class User extends Component {
     };
 
     loadData = async () => {
-        axios.post("http://localhost:3031/api/member/search/", {
+        axios.post("http://165.132.105.42:3031/api/member/search/", {
             "userid": this.state.userid,
             "gender": this.state.gender,
             "ageFrom": this.state.ageFrom,

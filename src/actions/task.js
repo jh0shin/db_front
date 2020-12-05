@@ -12,7 +12,7 @@ export function taskCreateRequest(name, description, minuploadcycle, tdtname, td
         dispatch(taskCreate());
 
         return axios.post(
-            'http://localhost:3031/api/task/create/', {
+            'http://165.132.105.42:3031/api/task/create/', {
                 'name': name,
                 'description': description,
                 'minuploadcycle': minuploadcycle,
