@@ -25,7 +25,7 @@ class UserModify extends Component {
     handleModify = () => {
         let birth = this.state.year + "-" + this.state.month + "-" + this.state.day;
 
-        axios.post("http://165.132.105.42:3031/api/user/modify/", {
+        axios.post("http://localhost:3000/api/user/modify/", {
             "userid": this.state.id,
             "name": this.state.name,
             "address": this.state.address,
@@ -38,9 +38,9 @@ class UserModify extends Component {
             if (this.state.role === "A")
                 this.props.history.push('/admin');
             else if (this.state.role === "S")
-                window.location.assign("http://165.132.105.42:3031/submitter?id=" + this.state.id)
+                window.location.assign("http://localhost:3000/submitter?id=" + this.state.id)
             else
-                window.location.assign("http://165.132.105.42:3031/evaluater?id=" + this.state.id)
+                window.location.assign("http://localhost:3000/evaluater?id=" + this.state.id)
         }).catch((e) => {});
     }
 
@@ -49,7 +49,7 @@ class UserModify extends Component {
             let $toastContent = window.$('<span style="color: #FFB4BA">admin은 탈퇴가 불가능합니다.</span>');
             window.Materialize.toast($toastContent, 4000);
         } else {
-            axios.post("http://165.132.105.42:3031/api/user/delete/", {
+            axios.post("http://localhost:3000/api/user/delete/", {
                 "userid": this.state.id
             }).then((response) => {
                 let $toastContent = window.$('<span style="color: #FFB4BA">회원 탈퇴가 완료되었습니다.</span>');
@@ -60,7 +60,7 @@ class UserModify extends Component {
     }
 
     loadData = async () => {
-        axios.post("http://165.132.105.42:3031/api/user/info/", {
+        axios.post("http://localhost:3000/api/user/info/", {
             "userid": this.props.location.search.split("=")[1]
         }).then((response) => {
             this.setState({

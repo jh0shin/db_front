@@ -18,7 +18,7 @@ class AddDatatype extends Component {
 	}
 	
 	handleSubmit = async () => {
-		axios.post("http://165.132.105.42:3031/api/task/newodt/", {
+		axios.post("http://localhost:3000/api/task/newodt/", {
 			"taskname": this.state.taskname,
 			"typename": this.state.typename,
 			"ODTschema": this.state.ODTschema,
