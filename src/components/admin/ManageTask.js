@@ -3,10 +3,18 @@ import React, { Component } from 'react';
 class ManageTask extends Component {
 
     state = {
+        loading : false,
         toggle: false,
         taskname : "",
         ItemList: [],
     };
+
+    togglePop = (taskname) => {
+      this.setState({
+        toggle : !this.state.toggle,
+        taskname : taskname
+      })
+    }
 
 
     //manageMain
@@ -68,8 +76,10 @@ class ManageTask extends Component {
 
 class PopWindow extends Component {
   state = {
-      taskname : '', // 위에서 taskname 받아오기
       loading: false,
+      passval : '',
+      member_id : "",
+      datatypename : "",
       ItemListODT: [],
       ItemListMember : []
   };
@@ -118,8 +128,8 @@ class PopWindow extends Component {
 
   setPasslimit = async () => {
       axios.post("http://localhost:3000/api/task/setpass/", {
-          "taskname": this.state.taskname,
-          "passval": this.state.passval
+          "taskname": this.props.taskname,
+          "passval": this.props.passval
       }).then((response) => {
           this.setState({
               loading: true,
@@ -136,8 +146,8 @@ class PopWindow extends Component {
 
   addParticipant = async () => {
       axios.post("http://localhost:3000/api/member/allow/", {
-          "member_id": this.state.member_id,
-          "taskname": this.state.taskname
+          "member_id": this.props.member_id,
+          "taskname": this.props.taskname
       }).then((response) => {
           this.setState({
               loading: true,
@@ -153,8 +163,8 @@ class PopWindow extends Component {
 
   addODT = async () => {
       axios.post("http://localhost:3000/api/member/allow/", {
-          "taskname": this.state.taskname,
-          "datatypename": this.state.datatypename,
+          "taskname": this.props.taskname,
+          "datatypename": this.props.datatypename,
       }).then((response) => {
           this.setState({
               loading: true,
@@ -173,13 +183,15 @@ class PopWindow extends Component {
       this.loadData();
   }
 
+  handleChange = (e) => {
+        let nextState = {};
+        nextState[e.target.name] = e.target.value;
+        this.setState(nextState);
+  }
 
   render() {
-      const { id, role } = this.props;
+      const { taskname } = this.props;
 
-      const adminView = (
-          <div>{this.state.ItemListMember}</div>
-      );
 
       const submitterlist = (
           <div className="wrapper">
@@ -231,13 +243,15 @@ class PopWindow extends Component {
         <div className='popup'>
           <div className='popup_inner'>
           <div className="modal-header">
-              <h3>{id}</h3>
+              <h3>{taskname}</h3>
           </div>
           <div className="modal-body">
-              {(role === 'A') ? adminView
-                  : (role === 'S' ? submitterView : evaluatorView)
-              }
+              {submitterlist, odtList}
           </div>
+          <lable className = "input">
+                      <label className="label">Pass value</label>
+            <input passval="passval" onChange={this.handleChange} value={this.state.passval}
+            />
           <div className="button_round" onClick={this.props.closePopup}>Close</div>
           </div>
         </div>
