@@ -89,11 +89,13 @@ class PopWindow extends Component {
 
     //showDatatype
     showODT = async () => {
+        console.log(this.props.taskname);
         axios.post("http://localhost:3000/api/task/getodt/", {
-            "taskname": this.state.taskname,
+            "taskname": this.props.taskname,
 
         }).then((response) => {
             this.setState({
+                ...this.state,
                 loading: true,
                 ItemListODT: response.data.result
             })
@@ -110,10 +112,10 @@ class PopWindow extends Component {
     //showParticipant
     showMember = async () => {
         axios.post("http://localhost:3000/api/task/getmember/", {
-
-            "taskname": this.state.taskname
+            "taskname": this.props.taskname
         }).then((response) => {
             this.setState({
+                ...this.state,
                 loading: true,
                 ItemListMember: response.data.result
             })
@@ -134,6 +136,7 @@ class PopWindow extends Component {
             "passval": this.props.passval
         }).then((response) => {
             this.setState({
+                ...this.state,
                 loading: true,
             })
             console.log(this.state);
@@ -152,6 +155,7 @@ class PopWindow extends Component {
             "taskname": this.props.taskname
         }).then((response) => {
             this.setState({
+                ...this.state,
                 loading: true,
             })
             console.log(this.state);
@@ -169,6 +173,7 @@ class PopWindow extends Component {
             "datatypename": this.props.datatypename,
         }).then((response) => {
             this.setState({
+                ...this.state,
                 loading: true,
             })
             console.log(this.state);
@@ -181,14 +186,15 @@ class PopWindow extends Component {
     }
 
 
-    componentDidMount() {
-        this.loadData();
-    }
-
     handleChange = (e) => {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
         this.setState(nextState);
+    }
+
+    componentDidMount() {
+        this.showODT();
+        this.showMember();
     }
 
     render() {
@@ -203,8 +209,8 @@ class PopWindow extends Component {
                         <div className="cell">Name</div>
                         <div className="cell">EVALSCORE</div>
                     </div>
-                    {this.state.ItemList &&
-                        this.state.ItemList.map((itemdata) => {
+                    {this.state.ItemListMember &&
+                        this.state.ItemListMember.map((itemdata) => {
                             return (
                                 <div className="row2" onClick={this.addParticipant(itemdata[0], this.state.taskname)} key={itemdata[0]}>
                                     <div className="cell" data-title="ID">{itemdata[0]}</div>
