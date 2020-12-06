@@ -7,6 +7,7 @@ import './style.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Register, Login, Create, App } from './containers';
 import { AddDatatype, AdminHome, ManageTask, TaskStatistic, User, UserModify } from './components';
+import { Redirect } from 'react-router';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -21,6 +22,9 @@ ReactDOM.render(
     <Router>
       <div>
         <Route path="/" component={App}/>
+        <Route exact path="/">
+          <Redirect to="/login"/>
+        </Route>
 
         <Route path="/register" component={Register}/>
         <Route path="/login" component={Login}/>
