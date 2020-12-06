@@ -35,25 +35,23 @@ class Pop extends Component {
     render() {
         return (
             <div>
-                <div className="body">
-                    <div className="wrapper">
-                        <h6>
-                            제출자가 참여 중인 태스크
-                        </h6>
-                        <div className="table">
-                            <div className="row2-header">
-                                <div className="cell">태스크명</div>
-                            </div>
-                            {this.state.ItemList &&
-                                this.state.ItemList.map((itemdata) => {
-                                    return (
-                                        <div className="row2" key={itemdata[0]}>
-                                            <div className="cell" data-title="FileCount">{itemdata[0]}</div>
-                                        </div>
-                                    );
-                                })
-                            }
+                <div className="wrapper">
+                    <h6>
+                        제출자가 참여 중인 태스크
+                    </h6>
+                    <div className="table">
+                        <div className="row2-header">
+                            <div className="cell">태스크명</div>
                         </div>
+                        {this.state.ItemList &&
+                            this.state.ItemList.map((itemdata) => {
+                                return (
+                                    <div className="row2" key={itemdata[0]}>
+                                        <div className="cell" data-title="FileCount">{itemdata[0]}</div>
+                                    </div>
+                                );
+                            })
+                        }
                     </div>
                 </div>
             </div>

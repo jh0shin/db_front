@@ -35,7 +35,7 @@ class ManageTask extends Component {
         });
     }
 
-    componentDidMount () {
+    componentDidMount() {
         this.loadTaskData();
     }
 
@@ -47,27 +47,30 @@ class ManageTask extends Component {
             <div>{this.state.ItemList}</div>
         );
         return (
-            <div className="wrapper">
-                <div className="table">
-                    <div className="row2-header">
-                        <div className="cell">taskname</div>
-                        <div className="cell">explanation</div>
-                        <div className="cell">manage task</div>
+            <div>
+                <div className="button_round"><a href="/admin">태스크 통계</a></div>
+                <div className="wrapper">
+                    <div className="table">
+                        <div className="row2-header">
+                            <div className="cell">taskname</div>
+                            <div className="cell">explanation</div>
+                            <div className="cell">manage task</div>
 
-                        {this.state.ItemList &&
-                            this.state.ItemList.map((itemdata) => {
-                                return (
-                                    <div className="row2" onClick={this.togglePop.bind(this, itemdata[0])} key={itemdata[0]}>
-                                        <div className="cell" data-title="TaskName">{itemdata[0]}</div>
-                                        <div className="cell" data-title="Explanation">{itemdata[1]}</div>
-                                        <div className="cell">manage task</div>
-                                    </div>
-                                );
-                            })
-                        }
+                            {this.state.ItemList &&
+                                this.state.ItemList.map((itemdata) => {
+                                    return (
+                                        <div className="row2" onClick={this.togglePop.bind(this, itemdata[0])} key={itemdata[0]}>
+                                            <div className="cell" data-title="TaskName">{itemdata[0]}</div>
+                                            <div className="cell" data-title="Explanation">{itemdata[1]}</div>
+                                            <div className="cell">manage task</div>
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
+
+                        {this.state.toggle ? <PopWindow taskname={this.state.taskname} closePopup={this.togglePop.bind(this)} /> : null}
                     </div>
-
-                    {this.state.toggle ? <PopWindow taskname={this.state.taskname} closePopup={this.togglePop.bind(this)} /> : null}
                 </div>
             </div>
         );
@@ -259,7 +262,7 @@ class PopWindow extends Component {
                     </div>
                 </div>
             </div>
-        );            
+        );
     }
 }
 
