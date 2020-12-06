@@ -54,7 +54,7 @@ class TaskStatistic extends Component {
         return (
             <div>
             
-                <div className="button_round"><a href="/admin">태스크 통계</a></div>
+                <div className="button_round"><a href="/admin">관리자홈</a></div>
             
                 <div className="body body-s">
                     <h3>태스크 통계 화면</h3>

@@ -48,7 +48,7 @@ class ManageTask extends Component {
         );
         return (
             <div>
-                <div className="button_round"><a href="/admin">태스크 통계</a></div>
+                <div className="button_round"><a href="/admin">관리자홈</a></div>
                 <div className="wrapper">
                     <div className="table">
                         <div className="row2-header">

@@ -90,7 +90,7 @@ class UserModify extends Component {
     render() {
         return (
             <div>
-                <div className="button_round"><a href="/admin">태스크 통계</a></div>
+                <div className="button_round"><a href="/admin">관리자홈</a></div>
                 <div className="body">
                     <div action="" className="sky-form">
                         <header>
