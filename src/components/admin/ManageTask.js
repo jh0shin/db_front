@@ -244,9 +244,9 @@ class PopWindow extends Component {
                         this.state.ItemListODT.map((itemdata) => {
                             return (
                                 <div className="row2" onClick={this.addODT(this.state.taskname, itemdata[0])} key={itemdata[1]}>
-                                    <div className="cell" data-title="ID">{itemdata[2]}</div>
-                                    <div className="cell" data-title="FileName">{itemdata[1]}</div>
-                                    <div className="cell" data-title="P/NP">{itemdata[0]}</div>
+                                    <div className="cell" data-title="SCHEMATYPE">{itemdata[2]}</div>
+                                    <div className="cell" data-title="SCHEMAINFO">{itemdata[1]}</div>
+                                    <div className="cell" data-title="DATATYPE_NAME">{itemdata[0]}</div>
                                 </div>
                             );
                         })
