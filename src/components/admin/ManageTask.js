@@ -47,27 +47,30 @@ class ManageTask extends Component {
             <div>{this.state.ItemList}</div>
         );
         return (
-            <div className="wrapper">
-                <div className="table">
-                    <div className="row2-header">
-                        <div className="cell">taskname</div>
-                        <div className="cell">explanation</div>
-                        <div className="cell">manage task</div>
+            <div>
+                <div className="button_round"><a href="/admin">관리자홈</a></div>
+                <div className="wrapper">
+                    <div className="table">
+                        <div className="row2-header">
+                            <div className="cell">taskname</div>
+                            <div className="cell">explanation</div>
+                            <div className="cell">manage task</div>
 
-                        {this.state.ItemList &&
-                            this.state.ItemList.map((itemdata) => {
-                                return (
-                                    <div className="row2" onClick={this.togglePop.bind(this, itemdata[0])} key={itemdata[0]}>
-                                        <div className="cell" data-title="TaskName">{itemdata[0]}</div>
-                                        <div className="cell" data-title="Explanation">{itemdata[1]}</div>
-                                        <div className="cell">manage task</div>
-                                    </div>
-                                );
-                            })
-                        }
+                            {this.state.ItemList &&
+                                this.state.ItemList.map((itemdata) => {
+                                    return (
+                                        <div className="row2" onClick={this.togglePop.bind(this, itemdata[0])} key={itemdata[0]}>
+                                            <div className="cell" data-title="TaskName">{itemdata[0]}</div>
+                                            <div className="cell" data-title="Explanation">{itemdata[1]}</div>
+                                            <div className="cell">manage task</div>
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
+
+                        {this.state.toggle ? <PopWindow taskname={this.state.taskname} closePopup={this.togglePop.bind(this)} /> : null}
                     </div>
-
-                    {this.state.toggle ? <PopWindow taskname={this.state.taskname} closePopup={this.togglePop.bind(this)} /> : null}
                 </div>
             </div>
         );
@@ -89,13 +92,11 @@ class PopWindow extends Component {
 
     //showDatatype
     showODT = async () => {
-        console.log(this.props.taskname);
         axios.post("http://localhost:3000/api/task/getodt/", {
-            "taskname": this.props.taskname,
+            "taskname": this.state.taskname,
 
         }).then((response) => {
             this.setState({
-                ...this.state,
                 loading: true,
                 ItemListODT: response.data.result
             })
@@ -186,15 +187,14 @@ class PopWindow extends Component {
     }
 
 
+    componentDidMount() {
+        this.loadData();
+    }
+
     handleChange = (e) => {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
         this.setState(nextState);
-    }
-
-    componentDidMount() {
-        this.showODT();
-        this.showMember();
     }
 
     render() {
@@ -209,8 +209,8 @@ class PopWindow extends Component {
                         <div className="cell">Name</div>
                         <div className="cell">EVALSCORE</div>
                     </div>
-                    {this.state.ItemListMember &&
-                        this.state.ItemListMember.map((itemdata) => {
+                    {this.state.ItemList &&
+                        this.state.ItemList.map((itemdata) => {
                             return (
                                 <div className="row2" onClick={this.addParticipant(itemdata[0], this.state.taskname)} key={itemdata[0]}>
                                     <div className="cell" data-title="ID">{itemdata[0]}</div>
@@ -265,7 +265,7 @@ class PopWindow extends Component {
                     </div>
                 </div>
             </div>
-        );            
+        );
     }
 }
 

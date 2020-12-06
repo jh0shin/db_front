@@ -33,5 +33,4 @@ class AdminHome extends Component {
         );
     }
 }
- 
 export default AdminHome;

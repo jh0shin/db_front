@@ -55,6 +55,7 @@ class User extends Component {
     render() {
         return (
             <div>
+                <div className="button_round"><a href="/admin">관리자홈</a></div>
                 <div className="body body-s">
             
                     <div action="" className="sky-form">
