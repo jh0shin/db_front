@@ -22,9 +22,9 @@ class Login extends Component {
                     if (this.props.role === "A")
                         this.props.history.push('/admin');
                     else if (this.props.role === "S")
-                        window.location.assign("http://localhost:3000/submitter?id=" + id)
+                        window.location.assign("http://165.132.105.42:3031/submitter?id=" + id)
                     else
-                        window.location.assign("http://localhost:3000/evaluater?id=" + id)
+                        window.location.assign("http://165.132.105.42:3031/evaluater?id=" + id)
                     return true;
                 } else {
                     let $toastContent = window.$('<span style="color: #FFB4BA">' + this.props.errorMessage + '</span>');
