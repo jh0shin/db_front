@@ -15,7 +15,7 @@ class Popup extends Component {
             });
         }
         else {
-            axios.post("http://localhost:3000/api/member/info/", {
+            axios.post("http://165.132.105.42:3031/api/member/info/", {
                 "userid": this.props.id,
                 "role": this.props.role,
             }).then((response) => {

@@ -20,7 +20,7 @@ class ManageTask extends Component {
 
     //manageMain
     loadTaskData = async () => {
-        axios.post("http://localhost:3000/api/task/manage/", {
+        axios.post("http://165.132.105.42:3031/api/task/manage/", {
         }).then((response) => {
             this.setState({
                 ...this.state,
@@ -92,7 +92,7 @@ class PopWindow extends Component {
 
     //showDatatype
     showODT = async () => {
-        axios.post("http://localhost:3000/api/task/getodt/", {
+        axios.post("http://165.132.105.42:3031/api/task/getodt/", {
             "taskname": this.state.taskname,
 
         }).then((response) => {
@@ -112,7 +112,7 @@ class PopWindow extends Component {
 
     //showParticipant
     showMember = async () => {
-        axios.post("http://localhost:3000/api/task/getmember/", {
+        axios.post("http://165.132.105.42:3031/api/task/getmember/", {
             "taskname": this.props.taskname
         }).then((response) => {
             this.setState({
@@ -132,7 +132,7 @@ class PopWindow extends Component {
 
 
     setPasslimit = async () => {
-        axios.post("http://localhost:3000/api/task/setpass/", {
+        axios.post("http://165.132.105.42:3031/api/task/setpass/", {
             "taskname": this.props.taskname,
             "passval": this.props.passval
         }).then((response) => {
@@ -151,7 +151,7 @@ class PopWindow extends Component {
 
 
     addParticipant = async () => {
-        axios.post("http://localhost:3000/api/member/allow/", {
+        axios.post("http://165.132.105.42:3031/api/member/allow/", {
             "member_id": this.props.member_id,
             "taskname": this.props.taskname
         }).then((response) => {
@@ -169,7 +169,7 @@ class PopWindow extends Component {
     }
 
     addODT = async () => {
-        axios.post("http://localhost:3000/api/member/allow/", {
+        axios.post("http://165.132.105.42:3031/api/member/allow/", {
             "taskname": this.props.taskname,
             "datatypename": this.props.datatypename,
         }).then((response) => {

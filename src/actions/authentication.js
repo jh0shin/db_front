@@ -16,7 +16,7 @@ import {
 export function logoutRequest() {
     return (dispatch) => {
         return axios.post(
-            'http://localhost:3000/api/logout/'
+            'http://165.132.105.42:3031/api/logout/'
         ).then((response) => {
             dispatch(logout());
         });
@@ -29,7 +29,7 @@ export function getStatusRequest() {
         // get status API starting
         dispatch(getStatus());
 
-        return axios.get('http://localhost:3000/api/getinfo/')
+        return axios.get('http://165.132.105.42:3031/api/getinfo/')
         .then((response) => {
             dispatch(getStatusSuccess(response.data.info.userid));
         }).catch((error) => {
@@ -46,7 +46,7 @@ export function loginRequest(id, password) {
 
         // Request
         return axios.post(
-            'http://localhost:3000/api/login/', {
+            'http://165.132.105.42:3031/api/login/', {
                 'userid': id,
                 'password': password
         }).then((response) => {
@@ -67,7 +67,7 @@ export function registerRequest(id, password, name, address, gender, phone, birt
 
         // Request
         return axios.post(
-            'http://localhost:3000/api/register/', {
+            'http://165.132.105.42:3031/api/register/', {
                 'userid': id,
                 'password': password,
                 'name': name,

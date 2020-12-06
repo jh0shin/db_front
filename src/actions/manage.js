@@ -13,7 +13,7 @@ import {
 export function manageMainRequest() {
     return (dispatch) => {
         return axios.post(
-            'http://localhost:3000/task/manage/'
+            'http://165.132.105.42:3031/task/manage/'
         ).then((response) => {
             dispatch(manageMain());
         });
@@ -28,7 +28,7 @@ export function addParticipantRequest(member_id, taskname) {
         dispatch(participantAdd());
 
         return axios.post(
-            'http://localhost:3000/api/member/allow/', {
+            'http://165.132.105.42:3031/api/member/allow/', {
                 'member_id': member_id,
                 'taskname': taskname
         }).then((response) => {
@@ -51,7 +51,7 @@ export function addDatatypeRequest(taskname, datatypename, mappingschema) {
         dispatch(datatypeAdd());
 
         return axios.post(
-            'http://localhost:3000/api/task/allowodt/', {
+            'http://165.132.105.42:3031/api/task/allowodt/', {
                 'taskname': taskname,
                 'datatypename': taskname,
                 'mappingschema': mappingschema
@@ -75,7 +75,7 @@ export function setPassvalRequest(taskname, passval) {
 
         // Request
         return axios.post(
-            'http://localhost:3000/task/setpass/', {
+            'http://165.132.105.42:3031/task/setpass/', {
                 'taskname': taskname,
                 'passval': passval
         }).then((response) => {
